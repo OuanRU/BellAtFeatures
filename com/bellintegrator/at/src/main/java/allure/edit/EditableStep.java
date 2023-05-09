@@ -11,7 +11,8 @@ import java.util.stream.Collectors;
 
 public class EditableStep {
     private String stepId;
-    private StepResult stepResult;
+    protected StepResult stepResult;
+    private Status status;
     AllureStepDataTransfer dataTransfer = AllureStepDataTransfer.getInstance();
 
     protected EditableStep(String stepId, StepResult stepResult) {
@@ -27,14 +28,21 @@ public class EditableStep {
         return stepResult;
     }
 
+    protected void setThisStepStatusFailed() {
+        this.status = Status.FAILED;
+        dataTransfer.addStepToEditedMap(this);
+    }
+
     protected void setStepStatusFailed() {
-        this.stepResult = stepResult.setStatus(Status.FAILED);
+        this.status = Status.FAILED;
+        for (EditableStep step : dataTransfer.getAllOpenedSteps()) {
+            step.setThisStepStatusFailed();
+        }
         dataTransfer.addStepToEditedMap(this);
     }
 
     protected void setStepName(String newStepName) {
         this.stepResult = stepResult.setName(newStepName);
-        dataTransfer.addStepToEditedMap(this);
     }
 
     protected void deleteStepParameter(String parameterName) {
@@ -43,7 +51,7 @@ public class EditableStep {
         parameters = parameters.stream().filter(parameter -> !parameter.getName().equals(parameterName)).collect(Collectors.toList());
         result.setParameters(parameters);
         this.stepResult = result;
-        dataTransfer.addStepToEditedMap(this);
+        this.edit();
     }
 
     protected void deleteStepAllParameters() {
@@ -51,7 +59,7 @@ public class EditableStep {
         List<Parameter> parameters = new ArrayList<>();
         result.setParameters(parameters);
         this.stepResult = result;
-        dataTransfer.addStepToEditedMap(this);
+        this.edit();
     }
 
     protected void editStepParameterName(String oldParameterName, String newParameterName) {
@@ -64,12 +72,27 @@ public class EditableStep {
         }
         result.setParameters(parameters);
         this.stepResult = result;
-        dataTransfer.addStepToEditedMap(this);
+        this.edit();
+    }
+
+    protected void addStepParameter(String parameterName, String parameterValue) {
+        StepResult result = this.stepResult;
+        List<Parameter> parameters = result.getParameters();
+        parameters.add(new Parameter().setName(parameterName).setValue(parameterValue));
+        result.setParameters(parameters);
+        this.stepResult = result;
+        this.edit();
     }
 
     protected void edit() {
-        AllureEdit.replaceStepFromAllureReport(stepId, stepResult);
-        dataTransfer.removeEditedStep(stepId);
+        AllureEdit.replaceStepFromAllureReport(this.stepId, this.stepResult);
+    }
+
+    protected void editStatusIfNecessary() {
+        if (this.status.equals(Status.FAILED)) {
+            this.stepResult.setStatus(Status.FAILED);
+        }
+        dataTransfer.removeEditedStep(this.getStepId());
     }
 
     @Override

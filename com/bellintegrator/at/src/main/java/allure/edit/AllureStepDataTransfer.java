@@ -1,19 +1,24 @@
 package allure.edit;
 
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Stack;
 
 public class AllureStepDataTransfer {
     private static AllureStepDataTransfer instance;
 
-    private LinkedHashMap<String, EditableStep> editedSteps;
+    // Мапа, в которой храняться шаги, у которых менялся статус
+    private HashMap<String, EditableStep> editedSteps;
     // Стек открытых шагов, благодаря которому можно найти текущий исполняемый шаг
     private Stack<EditableStep> stepStack;
     // Последний завершённый шаг
     private EditableStep lastStep;
+    // Редактируемый следующий шаг
+    private DelayedEditableStep nextStep;
 
     private AllureStepDataTransfer() {
-        editedSteps = new LinkedHashMap<>();
+        editedSteps = new HashMap<>();
         stepStack = new Stack<>();
     }
 
@@ -58,5 +63,9 @@ public class AllureStepDataTransfer {
 
     protected void removeEditedStep(String uuid) {
         this.editedSteps.remove(uuid);
+    }
+
+    protected List<EditableStep> getAllOpenedSteps() {
+        return new ArrayList<>(stepStack);
     }
 }

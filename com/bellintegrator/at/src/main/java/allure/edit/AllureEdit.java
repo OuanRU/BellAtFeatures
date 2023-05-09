@@ -41,7 +41,7 @@ public class AllureEdit {
 
     public static void setLastStepStatusFailed() {
         dataTransfer.getLastStep().setStepStatusFailed();
-        dataTransfer.getLastStep().edit();
+        dataTransfer.getLastStep().editStatusIfNecessary();
     }
 
     public static void setLastStepName(String newStepName) {
@@ -61,6 +61,11 @@ public class AllureEdit {
 
     public static void editLastStepParameterName(String oldParameterName, String newParameterName) {
         dataTransfer.getLastStep().editStepParameterName(oldParameterName, newParameterName);
+        dataTransfer.getLastStep().edit();
+    }
+
+    public static void addLastStepParameter(String parameterName, String parameterValue) {
+        dataTransfer.getLastStep().addStepParameter(parameterName, parameterValue);
         dataTransfer.getLastStep().edit();
     }
 
@@ -84,5 +89,9 @@ public class AllureEdit {
 
     public static void editCurrentStepParameterName(String oldParameterName, String newParameterName) {
         dataTransfer.getCurrentStep().editStepParameterName(oldParameterName, newParameterName);
+    }
+
+    public static void addCurrentStepParameter(String parameterName, String parameterValue) {
+        dataTransfer.getCurrentStep().addStepParameter(parameterName, parameterValue);
     }
 }
