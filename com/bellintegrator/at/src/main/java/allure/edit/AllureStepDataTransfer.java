@@ -29,7 +29,7 @@ public class AllureStepDataTransfer {
         return instance;
     }
 
-    protected EditableStep getLastStep(){
+    protected EditableStep getLastStep() {
         return this.lastStep;
     }
 

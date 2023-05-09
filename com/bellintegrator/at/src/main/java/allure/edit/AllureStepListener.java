@@ -5,7 +5,7 @@ import io.qameta.allure.listener.StepLifecycleListener;
 import io.qameta.allure.model.StepResult;
 
 public class AllureStepListener implements StepLifecycleListener {
-    private AllureStepDataTransfer data = AllureStepDataTransfer.getInstance();
+    private final AllureStepDataTransfer data = AllureStepDataTransfer.getInstance();
 
     @Override
     public void afterStepStart(StepResult result) {

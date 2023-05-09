@@ -10,7 +10,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class EditableStep {
-    private String stepId;
+    private final String stepId;
     protected StepResult stepResult;
     private Status status;
     AllureStepDataTransfer dataTransfer = AllureStepDataTransfer.getInstance();

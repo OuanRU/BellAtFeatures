@@ -9,7 +9,7 @@ import java.lang.reflect.Field;
 import java.util.Map;
 
 public class AllureEdit {
-    private static AllureStepDataTransfer dataTransfer = AllureStepDataTransfer.getInstance();
+    private final static AllureStepDataTransfer dataTransfer = AllureStepDataTransfer.getInstance();
 
     /**
      * @param uuid   - id заменяемого шага, получается с помощью AllureStepListener и передаётся через AllureStepDataTransfer
