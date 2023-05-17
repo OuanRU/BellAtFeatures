@@ -26,6 +26,7 @@ public class ModifiedSteps {
 
     @Step("Сделать чего-нибудь много раз 11")
     public void doSmthManyTimes1(String s) {
+        AllureEdit.setNextStepName("И я изменился до старта");
         doSmthManyTimes(s);
     }
 }
