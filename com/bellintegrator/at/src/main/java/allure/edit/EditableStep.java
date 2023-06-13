@@ -55,7 +55,7 @@ public class EditableStep {
         this.edit();
     }
 
-    protected void deleteStepAllParameters() {
+    protected void deleteAllStepParameters() {
         StepResult result = this.stepResult;
         List<Parameter> parameters = new ArrayList<>();
         result.setParameters(parameters);

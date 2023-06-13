@@ -56,7 +56,7 @@ public class AllureEdit {
     }
 
     public static void deleteLastStepAllParameters() {
-        dataTransfer.getLastStep().deleteStepAllParameters();
+        dataTransfer.getLastStep().deleteAllStepParameters();
         dataTransfer.getLastStep().edit();
     }
 
@@ -85,7 +85,7 @@ public class AllureEdit {
     }
 
     public static void deleteCurrentStepAllParameters() {
-        dataTransfer.getCurrentStep().deleteStepAllParameters();
+        dataTransfer.getCurrentStep().deleteAllStepParameters();
     }
 
     public static void editCurrentStepParameterName(String oldParameterName, String newParameterName) {
@@ -96,6 +96,7 @@ public class AllureEdit {
         dataTransfer.getCurrentStep().addStepParameter(parameterName, parameterValue);
     }
 
+    // Имплементация для следующего шага
     public static void setNextStepName(String stepName) {
         DelayedEditableStep delayedEditableStep = DelayedEditableStep.getInstance();
         delayedEditableStep.setStepName(stepName);

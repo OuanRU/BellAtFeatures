@@ -7,6 +7,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Класс хранящий данные, для редактирования следующего шага
+ * Следующий шаг редактируется в AllureStepListener в afterStepStart методом EditableStep.editFromDelayedStep()
+ * @author Victor Avdonin
+ */
 public class DelayedEditableStep {
     private static DelayedEditableStep instance;
     private static String stepName;
