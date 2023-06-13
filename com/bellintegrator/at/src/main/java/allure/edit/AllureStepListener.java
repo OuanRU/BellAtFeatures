@@ -11,6 +11,10 @@ public class AllureStepListener implements StepLifecycleListener {
     public void afterStepStart(StepResult result) {
         String uuid = Allure.getLifecycle().getCurrentTestCaseOrStep().get();
         this.data.addStepToStack(new EditableStep(uuid, result));
+        if (DelayedEditableStep.getInstance().isDelayedEdit()) {
+            data.getCurrentStep().editFromDelayedStep(DelayedEditableStep.getInstance());
+            DelayedEditableStep.getInstance().clearDelayedStep();
+        }
     }
 
     /**

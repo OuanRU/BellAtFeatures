@@ -15,7 +15,8 @@ public class Tests {
 
     @Test
     public void test1() {
-//        AllureEdit.setNextStepName();
+        AllureEdit.setNextStepName("Я изменился до старта");
+        AllureEdit.addNextStepParameter("TEST", "TESTSTS");
         mSteps.doSmthManyTimes1("s");
         AllureEdit.addLastStepParameter("test", "testValue");
     }

@@ -3,6 +3,7 @@ package allure.edit;
 import io.qameta.allure.Allure;
 import io.qameta.allure.AllureLifecycle;
 import io.qameta.allure.internal.AllureStorage;
+import io.qameta.allure.model.Parameter;
 import io.qameta.allure.model.StepResult;
 
 import java.lang.reflect.Field;
@@ -55,7 +56,7 @@ public class AllureEdit {
     }
 
     public static void deleteLastStepAllParameters() {
-        dataTransfer.getLastStep().deleteStepAllParameters();
+        dataTransfer.getLastStep().deleteAllStepParameters();
         dataTransfer.getLastStep().edit();
     }
 
@@ -84,7 +85,7 @@ public class AllureEdit {
     }
 
     public static void deleteCurrentStepAllParameters() {
-        dataTransfer.getCurrentStep().deleteStepAllParameters();
+        dataTransfer.getCurrentStep().deleteAllStepParameters();
     }
 
     public static void editCurrentStepParameterName(String oldParameterName, String newParameterName) {
@@ -93,5 +94,21 @@ public class AllureEdit {
 
     public static void addCurrentStepParameter(String parameterName, String parameterValue) {
         dataTransfer.getCurrentStep().addStepParameter(parameterName, parameterValue);
+    }
+
+    // Имплементация для следующего шага
+    public static void setNextStepName(String stepName) {
+        DelayedEditableStep delayedEditableStep = DelayedEditableStep.getInstance();
+        delayedEditableStep.setStepName(stepName);
+    }
+
+    public static void addNextStepParameter(String parameterName, String parameterValue) {
+        DelayedEditableStep delayedEditableStep = DelayedEditableStep.getInstance();
+        delayedEditableStep.addParameter(new Parameter().setName(parameterName).setValue(parameterValue));
+    }
+
+    public static void editNextStepParameterName(String oldParameterName, String newParameterName) {
+        DelayedEditableStep delayedEditableStep = DelayedEditableStep.getInstance();
+        delayedEditableStep.editParameterName(oldParameterName, newParameterName);
     }
 }

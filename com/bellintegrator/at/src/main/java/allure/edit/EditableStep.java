@@ -6,6 +6,7 @@ import io.qameta.allure.model.StepResult;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -54,7 +55,7 @@ public class EditableStep {
         this.edit();
     }
 
-    protected void deleteStepAllParameters() {
+    protected void deleteAllStepParameters() {
         StepResult result = this.stepResult;
         List<Parameter> parameters = new ArrayList<>();
         result.setParameters(parameters);
@@ -85,6 +86,23 @@ public class EditableStep {
     }
 
     protected void edit() {
+        AllureEdit.replaceStepFromAllureReport(this.stepId, this.stepResult);
+    }
+
+    protected void editFromDelayedStep(DelayedEditableStep delayedEditableStep) {
+        if (delayedEditableStep.isStepNameEdited()) {
+            setStepName(delayedEditableStep.getStepName());
+        }
+        if (delayedEditableStep.isStepParametersEdited()) {
+            for (Map.Entry<String, String> paramEditEntry : delayedEditableStep.getEditedParameters().entrySet()) {
+                editStepParameterName(paramEditEntry.getKey(), paramEditEntry.getValue());
+            }
+        }
+        if (delayedEditableStep.isStepParametersAdded()) {
+            for (Parameter addedParameter : delayedEditableStep.getAddedParameters()) {
+                addStepParameter(addedParameter.getName(), addedParameter.getValue());
+            }
+        }
         AllureEdit.replaceStepFromAllureReport(this.stepId, this.stepResult);
     }
 
