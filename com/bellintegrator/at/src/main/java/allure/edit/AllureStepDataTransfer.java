@@ -16,6 +16,7 @@ public class AllureStepDataTransfer {
     private EditableStep lastStep;
     // Редактируемый следующий шаг
     private DelayedEditableStep nextStep;
+    private EditableStep manuallyStartedStep;
 
     private AllureStepDataTransfer() {
         editedSteps = new HashMap<>();
@@ -67,5 +68,17 @@ public class AllureStepDataTransfer {
 
     protected List<EditableStep> getAllOpenedSteps() {
         return new ArrayList<>(stepStack);
+    }
+
+    public EditableStep getManuallyStartedStep() {
+        return manuallyStartedStep;
+    }
+
+    public void setManuallyStartedStep(EditableStep manuallyStartedStep) {
+        this.manuallyStartedStep = manuallyStartedStep;
+    }
+
+    public void clearMannualyStartedStep() {
+        this.manuallyStartedStep = null;
     }
 }

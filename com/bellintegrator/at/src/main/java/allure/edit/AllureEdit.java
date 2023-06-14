@@ -4,10 +4,12 @@ import io.qameta.allure.Allure;
 import io.qameta.allure.AllureLifecycle;
 import io.qameta.allure.internal.AllureStorage;
 import io.qameta.allure.model.Parameter;
+import io.qameta.allure.model.Status;
 import io.qameta.allure.model.StepResult;
 
 import java.lang.reflect.Field;
 import java.util.Map;
+import java.util.UUID;
 
 public class AllureEdit {
     private final static AllureStepDataTransfer dataTransfer = AllureStepDataTransfer.getInstance();
@@ -110,5 +112,41 @@ public class AllureEdit {
     public static void editNextStepParameterName(String oldParameterName, String newParameterName) {
         DelayedEditableStep delayedEditableStep = DelayedEditableStep.getInstance();
         delayedEditableStep.editParameterName(oldParameterName, newParameterName);
+    }
+
+    /**
+     * @param name - имя шага(поддерживает добавление параметров через {}, как в логгере
+     * @param args - параметры, на которые будут заменены {}(можно оставить пустым)
+     * @Author Khusainov Salavat
+     * Будет автоматически завершён при старте другого ручного шага
+     * Все "не ручные"(стандартные) шаги будут подшагами для вызванного ручного шага, до тех пор, пока они находятся в промежутке до остановки ручного шага
+     * Пример использования:
+     * {
+     * AllureEdit.startStep("name {} {}", "arg1", "arg2"); - старт ручного шага
+     * Steps.step1(); - данный шаг будет подшагом
+     * AllureEdit.stopManuallyStep(); - остановка ручного шага
+     * Steps.step2(); - данный шаг будет отдельным шагом
+     * }
+     */
+    public static void startStep(String name, String... args) {
+        String stepName = name;
+        for (String arg : args) {
+            stepName = stepName.replaceFirst("\\{}", arg);
+        }
+
+        if (dataTransfer.getManuallyStartedStep() != null) {
+            stopManuallyStep();
+        }
+        UUID uuid = UUID.randomUUID();
+        StepResult stepResult = new StepResult();
+        stepResult.setName(stepName);
+        Allure.getLifecycle().startStep(uuid.toString(), stepResult);
+        dataTransfer.setManuallyStartedStep(new EditableStep(uuid.toString(), stepResult));
+    }
+
+    public static void stopManuallyStep() {
+        Allure.getLifecycle().updateStep(stepResult -> stepResult.setStatus(Status.PASSED));
+        Allure.getLifecycle().stopStep(dataTransfer.getManuallyStartedStep().getStepId());
+        dataTransfer.clearMannualyStartedStep();
     }
 }
