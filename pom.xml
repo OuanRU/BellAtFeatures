@@ -17,6 +17,7 @@
         <aeonbits.version>1.0.12</aeonbits.version>
         <logback.version>1.2.10</logback.version>
         <slf4j.version>1.7.36</slf4j.version>
+        <restAssured.version>5.3.0</restAssured.version>
     </properties>
 
 
@@ -42,14 +43,12 @@
             <version>${junit.jupiter.version}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>${seleniumhq.selenium}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-junit5 -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-junit5</artifactId>
@@ -87,6 +86,14 @@
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>${restAssured.version}</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
 

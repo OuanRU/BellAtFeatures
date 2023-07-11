@@ -29,4 +29,11 @@ public class ModifiedSteps {
         AllureEdit.setNextStepName("И я изменился до старта");
         doSmthManyTimes(s);
     }
+
+    public void rest() {
+//        RequestSpecification spec = new RequestSpecBuilder()
+//                .setContentType(ContentType.ANY)
+//                .setBaseUri("uri")
+//                .addFilter(new RequestLoggingFilter())
+    }
 }
