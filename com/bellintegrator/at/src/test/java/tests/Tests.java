@@ -1,6 +1,6 @@
 package tests;
 
-import allure.edit.AllureEdit;
+import allure.AllureEdit;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import steps.ModifiedSteps;

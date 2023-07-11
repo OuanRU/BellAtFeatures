@@ -1,6 +1,6 @@
 package steps;
 
-import allure.edit.AllureEdit;
+import allure.AllureEdit;
 import io.qameta.allure.Step;
 
 public class ModifiedSteps {

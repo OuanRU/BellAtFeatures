@@ -1,4 +1,4 @@
-package allure.edit;
+package allure;
 
 import io.qameta.allure.Allure;
 import io.qameta.allure.listener.StepLifecycleListener;
