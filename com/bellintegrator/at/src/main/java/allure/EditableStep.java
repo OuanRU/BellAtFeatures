@@ -1,4 +1,4 @@
-package allure.edit;
+package allure;
 
 import io.qameta.allure.model.Parameter;
 import io.qameta.allure.model.Status;
