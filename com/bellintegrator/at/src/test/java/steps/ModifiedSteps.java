@@ -3,6 +3,8 @@ package steps;
 import allure.edit.AllureEdit;
 import io.qameta.allure.Step;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
 public class ModifiedSteps {
 
     @Step("Сделать чего-нибудь")
@@ -28,5 +30,10 @@ public class ModifiedSteps {
     public void doSmthManyTimes1(String s) {
         AllureEdit.setNextStepName("И я изменился до старта");
         doSmthManyTimes(s);
+    }
+
+    @Step("Проверка ассерта")
+    public void assertTest(String actual, String expected) {
+        assertThat(expected).isEqualTo(actual);
     }
 }

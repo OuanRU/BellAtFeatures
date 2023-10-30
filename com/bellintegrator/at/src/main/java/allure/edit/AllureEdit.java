@@ -6,10 +6,12 @@ import io.qameta.allure.internal.AllureStorage;
 import io.qameta.allure.model.Parameter;
 import io.qameta.allure.model.Status;
 import io.qameta.allure.model.StepResult;
+import org.assertj.core.api.AbstractAssert;
 
 import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 public class AllureEdit {
     private final static AllureStepDataTransfer dataTransfer = AllureStepDataTransfer.getInstance();
@@ -148,5 +150,10 @@ public class AllureEdit {
         Allure.getLifecycle().updateStep(stepResult -> stepResult.setStatus(Status.PASSED));
         Allure.getLifecycle().stopStep(dataTransfer.getManuallyStartedStep().getStepId());
         dataTransfer.clearMannualyStartedStep();
+    }
+
+    public static void makeStepAssetion(String name, Consumer<AbstractAssert> consumer) {
+        startStep(name);
+        stopManuallyStep();
     }
 }
