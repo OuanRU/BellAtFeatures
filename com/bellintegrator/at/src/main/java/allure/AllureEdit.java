@@ -128,7 +128,7 @@ public class AllureEdit {
      * Steps.step2(); - данный шаг будет отдельным шагом
      * }
      */
-    public static void startStep(String name, String... args) {
+    public static void startManuallyStep(String name, String... args) {
         String stepName = name;
         for (String arg : args) {
             stepName = stepName.replaceFirst("\\{}", arg);

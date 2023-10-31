@@ -15,9 +15,9 @@ public class Tests {
 
     @Test
     public void test1() {
-        AllureEdit.startStep("bla bla {} {}", "bla 1", "bla 2");
+        AllureEdit.startManuallyStep("bla bla {} {}", "bla 1", "bla 2");
         AllureEdit.setCurrentStepName("mla mla 1");
-        AllureEdit.startStep("bla bla {} {}");
+        AllureEdit.startManuallyStep("bla bla {} {}");
         AllureEdit.setNextStepName("Я изменился до старта");
         AllureEdit.addNextStepParameter("TEST", "TESTSTS");
         mSteps.doSmthManyTimes1("s");
