@@ -14,8 +14,6 @@ public class AllureStepDataTransfer {
     private Stack<EditableStep> stepStack;
     // Последний завершённый шаг
     private EditableStep lastStep;
-    // Редактируемый следующий шаг
-    private DelayedEditableStep nextStep;
     private EditableStep manuallyStartedStep;
 
     private AllureStepDataTransfer() {
